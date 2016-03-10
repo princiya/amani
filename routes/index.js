@@ -17,6 +17,7 @@ router.get('/data', function(req, res) {
 router.get('/demands', function(req, res) {
 	var data = [
         {
+          visibility: 'true',
           parentCategory: 'Clothes',
           category: 'Shirt',
           date: '15.02.2016',
@@ -37,7 +38,8 @@ router.get('/demands', function(req, res) {
           }
         },
         {
-          parentCategory: 'Clothes',
+          visibility: 'true',
+          parentCategory: 'Footwear',
           category: 'Pants',
           date: '15.02.2016',
           gender: ['Men', 'Women'],
@@ -57,6 +59,7 @@ router.get('/demands', function(req, res) {
           }
         },
         {
+          visibility: 'true',
           parentCategory: 'Hygiene',
           category: 'Shampoo',
           date: '15.02.2016',

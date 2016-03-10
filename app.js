@@ -28,6 +28,8 @@ app.all('/*', function(req, res, next) {
   
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', require('./routes'));
 
 /// catch 404 and forwarding to error handler
