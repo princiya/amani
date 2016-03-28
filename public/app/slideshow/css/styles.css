@@ -55,7 +55,13 @@ body {
     backface-visibility: hidden;
     position: relative;
     background-color: #ffffff;
-	z-index: 11;
+	z-index: 1;
+	position: absolute;
+	right: 0px;
+}
+
+.page:first-child, .page:nth-child(2) {
+	z-index: 2;
 }
 
 .page .front {
@@ -70,12 +76,14 @@ body {
 	-webkit-transform-origin: 100% 0 0;
 	transform-origin: 100% 0 0;
 	background-color: red;
+	left: 0px;
 }
 
 .page.right {
 	-webkit-transform-origin: 0% 0 0;
 	transform-origin: 0% 0 0;
 	background-color: blue;
+	right: 0px;
 }
 
 /*.page:hover .back {

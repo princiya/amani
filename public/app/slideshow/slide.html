@@ -17,19 +17,79 @@
 					<div class = 'front'>Page 2 front</div>
 					<div class = 'back'>Page 2 back</div>
 				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 3 front</div>
+					<div class = 'back'>Page 3 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 4 front</div>
+					<div class = 'back'>Last page cover</div>
+				</div>
 			</div>
 		</div>
 
 		<div class = 'control'>
-			<div class = 'prev' onClick = 'prevPage()'>
+			<div class = 'prev' onClick = 'slide.prevPage()'>
 				<span>PREV PAGE</span>
 			</div>
-			<div class = 'next' onClick = 'nextPage()'>
+			<div class = 'next' onClick = 'slide.nextPage()'>
 				<span>NEXT PAGE</span>
 			</div>
 		</div>
 
 		<script type="text/javascript">
+			var slide = function() {
+				var bookNumber = 1,
+					pageNumber = 1
+					//nextPageNumber = 1
+					;
+
+				var hasMoreNextPages = function() {
+					return !$(getCurrentPage()).is(':last-child');
+				};
+
+				var hasMorePreviousPages = function() {
+					return !$(getCurrentPage()).is(':first-child');
+				};
+
+				var getCurrentBook = function() {
+					return $('.book').get(getCurrentBookNumber()-1);
+				};
+
+				var getCurrentPage = function() {
+					var book = getCurrentBook();
+					return $(book).find('.page:eq('+(getCurrentPageNumber())+')');
+				};
+
+				var getCurrentBookNumber = function() {
+					return bookNumber;
+				};
+
+				var getCurrentPageNumber = function() {
+					return pageNumber;
+				};
+
+				return {
+					prevPage: function() {
+						if(getCurrentPage == 1) {
+
+						}
+					},
+
+					nextPage: function() {
+					 	if(hasMoreNextPages()) {
+					 		var page = getCurrentPage();
+					 		$(page).addClass('rightPageTransition');
+							$(page).children('.back').addClass('backfaceVisibility');
+							$(page).children('.front').css('display', 'none');
+					 	} else 
+					 		console.log('last page');	
+					}
+				}
+			}();
+
 			function prevPage() {
 				$('.page.left').addClass('leftPageTransition');
 				$('.page.left .back').addClass('backfaceVisibility');
