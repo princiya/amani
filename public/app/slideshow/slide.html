@@ -40,6 +40,74 @@
 			</div>
 		</div>
 
+		<div class = 'book'>
+			<div class = 'pages'>
+				<div class = 'page left'>
+					<div class = 'front'>Page 1 front</div>
+					<div class = 'back'>Page 1 back</div>
+				</div>
+				
+				<div class = 'page right'>
+					<div class = 'front'>Page 2 front</div>
+					<div class = 'back'>Page 2 back</div>
+				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 3 front</div>
+					<div class = 'back'>Page 3 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 4 front</div>
+					<div class = 'back'>Page 4 back</div>
+				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 5 front</div>
+					<div class = 'back'>Page 5 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 6 front</div>
+					<div class = 'back'>Page 6 back</div>
+				</div>
+			</div>
+		</div>
+
+		<div class = 'book'>
+			<div class = 'pages'>
+				<div class = 'page left'>
+					<div class = 'front'>Page 1 front</div>
+					<div class = 'back'>Page 1 back</div>
+				</div>
+				
+				<div class = 'page right'>
+					<div class = 'front'>Page 2 front</div>
+					<div class = 'back'>Page 2 back</div>
+				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 3 front</div>
+					<div class = 'back'>Page 3 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 4 front</div>
+					<div class = 'back'>Page 4 back</div>
+				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 5 front</div>
+					<div class = 'back'>Page 5 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 6 front</div>
+					<div class = 'back'>Page 6 back</div>
+				</div>
+			</div>
+		</div>
+
 		<div class = 'control'>
 			<div class = 'prev' onClick = 'slide.prevPage()'>
 				<span>PREV PAGE</span>
@@ -49,12 +117,20 @@
 			</div>
 		</div>
 
+		<div class = 'vertical-control'>
+			<div class = 'top' onClick = 'slide.prevBook()'>
+				<span>PREV BOOK</span>
+			</div>
+			<div class = 'bottom' onClick = 'slide.nextBook()'>
+				<span>NEXT BOOK</span>
+			</div>
+		</div>
+
 		<script type="text/javascript">
 			var slide = function() {
 				var bookNumber = 1,
 					previousPageNumber = 4,
 					nextPageNumber = 1
-					//pageNumber = 1
 					;
 
 				var hasMoreNextPages = function() {
@@ -66,7 +142,7 @@
 				};
 
 				var getCurrentBook = function() {
-					return $('.book').get(getCurrentBookNumber()-1);
+					return $('.book').get(getCurrentBookNumber());
 				};
 
 				var getCurrentPage = function(val) {
@@ -115,28 +191,21 @@
 							incrementPageNumber();
 						} else 
 					 		console.log('last page');
+					},
+
+					prevBook: function() {
+						$('.book').eq(bookNumber).removeClass('animation-next');
+						$('.book').eq(bookNumber).removeClass('animation-prev');
+						$('.book').eq(bookNumber).addClass('animation-prev');
+					},
+
+					nextBook: function() {
+						$('.book').eq(bookNumber).removeClass('animation-prev');
+						$('.book').eq(bookNumber).removeClass('animation-next');
+					 	$('.book').eq(bookNumber).addClass('animation-next');
 					}
 				}
 			}();
-
-			function prevPage() {
-				$('.page.left').addClass('leftPageTransition');
-				$('.page.left .back').addClass('backfaceVisibility');
-				$('.page.left .front').css('display', 'none');
-			}
-
-			function nextPage() {
-				$('.page.right').addClass('rightPageTransition');
-				$('.page.right .back').addClass('backfaceVisibility');
-				$('.page.right .front').css('display', 'none');
-			}
-
-			function h() {
-				var newStyles = {};
-				newStyles[window.transitionStyle] = window.transformStyle + " 1s cubic-bezier(0.09,0.25,0.00,1.00)";
-				$(".left").css(newStyles);
-				$(".right").css(window.transformStyle, "rotateY(180deg)");
-			}
 		</script>
 	</body>
 </html>

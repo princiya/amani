@@ -33,7 +33,33 @@ body {
     left: 50%;
     margin-left: -300px;
     -webkit-perspective: 2000px;
-	perspective: 2000px;	
+	perspective: 2000px;
+}
+
+.book.animation-next {
+    animation: animation-next 3s linear;
+}
+
+@-webkit-keyframes animation-next {
+    0%   {top:50%;}
+    50% {top:140%;}
+}
+
+.book.animation-prev {
+    animation: animation-prev 3s linear;
+}
+
+@-webkit-keyframes animation-prev {
+    0%   {top:50%;}
+    50% {top:-50%;}
+}
+
+.book:first-child {
+	top: -500px;
+}
+
+.book:nth-child(3) {
+	top: 900px;
 }
 
 .pages {
@@ -159,6 +185,46 @@ body {
 
 .control .next {
 	right: 50px;
+}
+
+/* vertical controls */
+
+.vertical-control {
+	width: 200px;
+	height: 200px;
+	position: fixed;
+	margin-left: -100px;
+	left: 50%;
+}
+
+.vertical-control .top, .vertical-control .bottom {
+	width: 100px;
+	height: 100px;
+	position: fixed;
+	margin-left: -50px;
+	left: 50%;
+	border-radius: 50px;
+	background: #000000;
+	color: #ffffff;
+	display: table;
+}
+
+.vertical-control .top:hover, .vertical-control .bottom:hover {
+	background-color: green;
+	cursor: pointer;
+}
+
+.vertical-control .top > span, .vertical-control .bottom > span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.vertical-control .top {
+	top: 5px;
+}
+
+.vertical-control .bottom {
+	bottom: 5px;
 }
 
 
