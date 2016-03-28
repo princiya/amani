@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/webcam-swiper.js"></script>
 	</head>
 
 	<body>
@@ -338,12 +339,12 @@
 									if(hand_open_pos_old != hand_open_pos) {
 										var dx = (hand_open_pos[0] - hand_open_pos_old[0]) / video.videoWidth,
 											dy = (hand_open_pos[1] - hand_open_pos_old[1]) / video.videoHeight;
-										console.log('dx', dx);
+										/*console.log('dx', dx);
 										console.log('dy', dy);
 										if(dx > 100)
 											slide.nextPage();
 										else if(dx < -100)
-											slide.prevPage();
+											slide.prevPage();*/
 									}
 									
 									/* Draw coordinates on video overlay: */
@@ -411,6 +412,7 @@
 				);
 			};
 			autoplay();
+			initializeWebcamSwiper();
 		</script>
 	</body>
 </html>
