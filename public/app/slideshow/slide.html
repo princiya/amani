@@ -21,15 +21,25 @@
 		</div>
 
 		<div class = 'control'>
-			<div class = 'prev'>
+			<div class = 'prev' onClick = 'prevPage()'>
 				<span>PREV PAGE</span>
 			</div>
-			<div class = 'next'>
+			<div class = 'next' onClick = 'nextPage()'>
 				<span>NEXT PAGE</span>
 			</div>
 		</div>
 
 		<script type="text/javascript">
+			function prevPage() {
+				$('.page.right').addClass('rightPageTransition');
+				$('.page.right .back').addClass('backfaceVisibility');
+			}
+
+			function nextPage() {
+				$('.page.left').addClass('leftPageTransition');
+				$('.page.left .back').addClass('backfaceVisibility');
+			}
+
 			function h() {
 				var newStyles = {};
 				newStyles[window.transitionStyle] = window.transformStyle + " 1s cubic-bezier(0.09,0.25,0.00,1.00)";
