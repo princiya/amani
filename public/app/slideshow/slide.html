@@ -25,7 +25,7 @@
 
 				<div class = 'page right'>
 					<div class = 'front'>Page 4 front</div>
-					<div class = 'back'>Last page cover</div>
+					<div class = 'back'>Page 4 back</div>
 				</div>
 			</div>
 		</div>
@@ -43,7 +43,6 @@
 			var slide = function() {
 				var bookNumber = 1,
 					pageNumber = 1
-					//nextPageNumber = 1
 					;
 
 				var hasMoreNextPages = function() {
@@ -58,7 +57,7 @@
 					return $('.book').get(getCurrentBookNumber()-1);
 				};
 
-				var getCurrentPage = function() {
+				var getCurrentPage = function(val) {
 					var book = getCurrentBook();
 					return $(book).find('.page:eq('+(getCurrentPageNumber())+')');
 				};
@@ -67,25 +66,41 @@
 					return bookNumber;
 				};
 
-				var getCurrentPageNumber = function() {
+				var getCurrentPageNumber = function(val) {
 					return pageNumber;
 				};
 
+				var incrementPageNumber = function() {
+					pageNumber++;
+				};
+
+				var decrementPageNumber = function() {
+					pageNumber--;
+				}
+
 				return {
 					prevPage: function() {
-						if(getCurrentPage == 1) {
-
-						}
+						if(hasMorePreviousPages()) {
+					 		var page = getCurrentPage();
+					 		$(page).addClass('leftPageTransition');
+					 		$(page).css('z-index', 4);
+							$(page).children('.back').addClass('backfaceVisibility');
+							$(page).children('.front').css('display', 'none');
+							decrementPageNumber();
+					 	} else 
+					 		console.log('first page');
 					},
 
 					nextPage: function() {
 					 	if(hasMoreNextPages()) {
 					 		var page = getCurrentPage();
 					 		$(page).addClass('rightPageTransition');
+					 		$(page).css('z-index', 3);
 							$(page).children('.back').addClass('backfaceVisibility');
 							$(page).children('.front').css('display', 'none');
-					 	} else 
-					 		console.log('last page');	
+							incrementPageNumber();
+						} else 
+					 		console.log('last page');
 					}
 				}
 			}();

@@ -44,7 +44,7 @@ body {
 .page {
 	border: 1px solid #000;
 	display: inline-block;
-    width: 49%;
+    width: 50%;
     float: left;
     height: 100%;
     -webkit-transform: rotateY(0deg);
@@ -54,10 +54,9 @@ body {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: relative;
-    background-color: #ffffff;
+    background-color: #cccccc;
 	z-index: 1;
 	position: absolute;
-	right: 0px;
 }
 
 .page:first-child, .page:nth-child(2) {
@@ -70,19 +69,23 @@ body {
 
 .page .back {
 	visibility: hidden;
+	position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: yellow;
 }
 
 .page.left {
 	-webkit-transform-origin: 100% 0 0;
 	transform-origin: 100% 0 0;
-	background-color: red;
 	left: 0px;
 }
 
 .page.right {
 	-webkit-transform-origin: 0% 0 0;
 	transform-origin: 0% 0 0;
-	background-color: blue;
 	right: 0px;
 }
 
@@ -113,14 +116,14 @@ body {
 .leftPageTransition {
 	-webkit-transform: rotateY(180deg);
 	transform: rotateY(180deg);
-	z-index: 12;
 }
 
 .rightPageTransition {
 	-webkit-transform: rotateY(-180deg);
 	transform: rotateY(-180deg);
-	z-index: 13;
-	background-color: blue;
+
+	-webkit-transform-origin: 100% 0 0;
+	transform-origin: 100% 0 0;
 }
 
 .control {
