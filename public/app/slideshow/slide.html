@@ -27,6 +27,16 @@
 					<div class = 'front'>Page 4 front</div>
 					<div class = 'back'>Page 4 back</div>
 				</div>
+
+				<div class = 'page left'>
+					<div class = 'front'>Page 5 front</div>
+					<div class = 'back'>Page 5 back</div>
+				</div>
+
+				<div class = 'page right'>
+					<div class = 'front'>Page 6 front</div>
+					<div class = 'back'>Page 6 back</div>
+				</div>
 			</div>
 		</div>
 
@@ -42,15 +52,17 @@
 		<script type="text/javascript">
 			var slide = function() {
 				var bookNumber = 1,
-					pageNumber = 1
+					previousPageNumber = 4,
+					nextPageNumber = 1
+					//pageNumber = 1
 					;
 
 				var hasMoreNextPages = function() {
-					return !$(getCurrentPage()).is(':last-child');
+					return !$(getCurrentPage('next')).is(':last-child');
 				};
 
 				var hasMorePreviousPages = function() {
-					return !$(getCurrentPage()).is(':first-child');
+					return !$(getCurrentPage('prev')).is(':first-child');
 				};
 
 				var getCurrentBook = function() {
@@ -59,7 +71,7 @@
 
 				var getCurrentPage = function(val) {
 					var book = getCurrentBook();
-					return $(book).find('.page:eq('+(getCurrentPageNumber())+')');
+					return $(book).find('.page:eq('+(getCurrentPageNumber(val))+')');
 				};
 
 				var getCurrentBookNumber = function() {
@@ -67,21 +79,23 @@
 				};
 
 				var getCurrentPageNumber = function(val) {
-					return pageNumber;
+					if(val == 'prev')
+						return previousPageNumber;
+					return nextPageNumber;
 				};
 
 				var incrementPageNumber = function() {
-					pageNumber++;
+					nextPageNumber+=2;
 				};
 
 				var decrementPageNumber = function() {
-					pageNumber--;
+					previousPageNumber-=2;
 				}
 
 				return {
 					prevPage: function() {
 						if(hasMorePreviousPages()) {
-					 		var page = getCurrentPage();
+					 		var page = getCurrentPage('prev');
 					 		$(page).addClass('leftPageTransition');
 					 		$(page).css('z-index', 4);
 							$(page).children('.back').addClass('backfaceVisibility');
@@ -93,7 +107,7 @@
 
 					nextPage: function() {
 					 	if(hasMoreNextPages()) {
-					 		var page = getCurrentPage();
+					 		var page = getCurrentPage('next');
 					 		$(page).addClass('rightPageTransition');
 					 		$(page).css('z-index', 3);
 							$(page).children('.back').addClass('backfaceVisibility');
