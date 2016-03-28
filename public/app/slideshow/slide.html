@@ -8,12 +8,12 @@
 		
 		<div class = 'book'>
 			<div class = 'pages'>
-				<div class = 'page right'>
+				<div class = 'page left'>
 					<div class = 'front'>Page 1 front</div>
 					<div class = 'back'>Page 1 back</div>
 				</div>
 				
-				<div class = 'page left'>
+				<div class = 'page right'>
 					<div class = 'front'>Page 2 front</div>
 					<div class = 'back'>Page 2 back</div>
 				</div>
@@ -31,13 +31,15 @@
 
 		<script type="text/javascript">
 			function prevPage() {
-				$('.page.right').addClass('rightPageTransition');
-				$('.page.right .back').addClass('backfaceVisibility');
+				$('.page.left').addClass('leftPageTransition');
+				$('.page.left .back').addClass('backfaceVisibility');
+				$('.page.left .front').css('display', 'none');
 			}
 
 			function nextPage() {
-				$('.page.left').addClass('leftPageTransition');
-				$('.page.left .back').addClass('backfaceVisibility');
+				$('.page.right').addClass('rightPageTransition');
+				$('.page.right .back').addClass('backfaceVisibility');
+				$('.page.right .front').css('display', 'none');
 			}
 
 			function h() {

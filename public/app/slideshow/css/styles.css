@@ -48,15 +48,13 @@ body {
     float: left;
     height: 100%;
     -webkit-transform: rotateY(0deg);
-    transform: rotateY(0deg);;
+    transform: rotateY(0deg);
     -webkit-transition: -webkit-transform 2s cubic-bezier(0.09,0.25,0.00,1.00);
     transition: transform 2s cubic-bezier(0.09,0.25,0.00,1.00);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: relative;
-    -webkit-transform: rotateY(0deg);
-	transform: rotateY(0deg);
-	background-color: #ffffff;
+    background-color: #ffffff;
 	z-index: 11;
 }
 
@@ -69,14 +67,14 @@ body {
 }
 
 .page.left {
-	-webkit-transform-origin: 0 0 0;
-	transform-origin: 0 0 0;
+	-webkit-transform-origin: 100% 0 0;
+	transform-origin: 100% 0 0;
 	background-color: red;
 }
 
 .page.right {
-	-webkit-transform-origin: 100% 0 0;
-	transform-origin: 100% 0 0;
+	-webkit-transform-origin: 0% 0 0;
+	transform-origin: 0% 0 0;
 	background-color: blue;
 }
 
@@ -100,21 +98,21 @@ body {
 
 .page .back.backfaceVisibility {
 	visibility: visible;
-	-webkit-transform: rotateY(180deg);
-	transform: rotateY(180deg);
-	background-color: yellow;
+	-webkit-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
 }
 
 .leftPageTransition {
-	-webkit-transform: rotateY(-180deg);
-	transform: rotateY(-180deg);
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
 	z-index: 12;
 }
 
 .rightPageTransition {
-	-webkit-transform: rotateY(180deg);
-	transform: rotateY(180deg);
+	-webkit-transform: rotateY(-180deg);
+	transform: rotateY(-180deg);
 	z-index: 13;
+	background-color: blue;
 }
 
 .control {
