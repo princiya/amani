@@ -2,7 +2,11 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
 		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/webcam-swiper.js"></script>
+		<script type="text/javascript" src="js/compatibility.js"></script>
+		<script type="text/javascript" src="js/objectdetect.js"></script>
+		<script type="text/javascript" src="js/objectdetect.handopen.js"></script>
+		<script type="text/javascript" src="js/objectdetect.handfist.js"></script>
+		<script type="text/javascript" src="js/slide.js"></script>
 	</head>
 
 	<body>
@@ -44,33 +48,33 @@
 		<div class = 'book'>
 			<div class = 'pages'>
 				<div class = 'page left'>
-					<div class = 'front'>Page 1 front</div>
-					<div class = 'back'>Page 1 back</div>
+					<div class = 'front'><img src = 'images/page3.png' /></div>
+					<div class = 'back'><img src = 'images/page4.png' /></div>
 				</div>
 				
 				<div class = 'page right'>
-					<div class = 'front'>Page 2 front</div>
-					<div class = 'back'>Page 2 back</div>
+					<div class = 'front'><img src = 'images/page2.png' /></div>
+					<div class = 'back'><img src = 'images/page1.png' /></div>
 				</div>
 
 				<div class = 'page left'>
-					<div class = 'front'>Page 3 front</div>
-					<div class = 'back'>Page 3 back</div>
+					<div class = 'front'><img src = 'images/page3.png' /></div>
+					<div class = 'back'><img src = 'images/page4.png' /></div>
 				</div>
 
 				<div class = 'page right'>
-					<div class = 'front'>Page 4 front</div>
-					<div class = 'back'>Page 4 back</div>
+					<div class = 'front'><img src = 'images/page5.png' /></div>
+					<div class = 'back'><img src = 'images/page1.png' /></div>
 				</div>
 
 				<div class = 'page left'>
-					<div class = 'front'>Page 5 front</div>
-					<div class = 'back'>Page 5 back</div>
+					<div class = 'front'><img src = 'images/page2.png' /></div>
+					<div class = 'back'><img src = 'images/page3.png' /></div>
 				</div>
 
 				<div class = 'page right'>
-					<div class = 'front'>Page 6 front</div>
-					<div class = 'back'>Page 6 back</div>
+					<div class = 'front'><img src = 'images/page4.png' /></div>
+					<div class = 'back'><img src = 'images/page5.png' /></div>
 				</div>
 			</div>
 		</div>
@@ -127,292 +131,161 @@
 			</div>
 		</div>
 
-		<script type="text/javascript">
-			var slide = function() {
-				var bookNumber = 1,
-					previousPageNumber = 4,
-					nextPageNumber = 1
-					;
-
-				var hasMoreNextPages = function() {
-					return !$(getCurrentPage('next')).is(':last-child');
-				};
-
-				var hasMorePreviousPages = function() {
-					return !$(getCurrentPage('prev')).is(':first-child');
-				};
-
-				var getCurrentBook = function() {
-					return $('.book').get(getCurrentBookNumber());
-				};
-
-				var getCurrentPage = function(val) {
-					var book = getCurrentBook();
-					return $(book).find('.page:eq('+(getCurrentPageNumber(val))+')');
-				};
-
-				var getCurrentBookNumber = function() {
-					return bookNumber;
-				};
-
-				var getCurrentPageNumber = function(val) {
-					if(val == 'prev')
-						return previousPageNumber;
-					return nextPageNumber;
-				};
-
-				var incrementPageNumber = function() {
-					nextPageNumber+=2;
-				};
-
-				var decrementPageNumber = function() {
-					previousPageNumber-=2;
-				}
-
-				return {
-					prevPage: function() {
-						if(hasMorePreviousPages()) {
-					 		var page = getCurrentPage('prev');
-					 		$(page).addClass('leftPageTransition');
-					 		$(page).css('z-index', 4);
-							$(page).children('.back').addClass('backfaceVisibility');
-							$(page).children('.front').css('display', 'none');
-							decrementPageNumber();
-					 	} else {
-					 		console.log('first page');
-					 		nextPageNumber = 1;
-					 		previousPageNumber = 4;
-					 		$('.page .back').removeClass('backfaceVisibility');
-							$('.page').css('z-index', 1);
-							$('.page:nth-child(5)').css('z-index', 2);
-							$('.page:nth-child(2)').css('z-index', 2);
-							$('.page').removeClass('rightPageTransition');
-							$('.page').removeClass('leftPageTransition');
-						}
-					},
-
-					nextPage: function() {
-					 	if(hasMoreNextPages()) {
-					 		var page = getCurrentPage('next');
-					 		$(page).addClass('rightPageTransition');
-					 		$(page).css('z-index', 3);
-							$(page).children('.back').addClass('backfaceVisibility');
-							$(page).children('.front').css('display', 'none');
-							incrementPageNumber();
-						} else {
-					 		console.log('last page');
-					 		nextPageNumber = 1;
-					 		previousPageNumber = 4;
-					 		$('.page .back').removeClass('backfaceVisibility');
-							$('.page').css('z-index', 1);
-							$('.page:nth-child(5)').css('z-index', 2);
-							$('.page:nth-child(2)').css('z-index', 2);
-							$('.page').removeClass('rightPageTransition');
-							$('.page').removeClass('leftPageTransition');
-					 	}
-					},
-
-					prevBook: function() {
-						$('.book').eq(bookNumber).removeClass('animation-next');
-						$('.book').eq(bookNumber).removeClass('animation-prev');
-						$('.book').eq(bookNumber).addClass('animation-prev');
-					},
-
-					nextBook: function() {
-						$('.book').eq(bookNumber).removeClass('animation-prev');
-						$('.book').eq(bookNumber).removeClass('animation-next');
-					 	$('.book').eq(bookNumber).addClass('animation-next');
-					}
-				}
-			}();
-		</script>
-
 		<script>
 			var hand_fist_pos_old, hand_open_pos_old;
-
-			var autoplay = function() {
-				function getScripts(urls, callback) {
-					var numDone = 0;
-					
-					function getScript(url, callback) {
-						var script = document.createElement('script'),
-								head = document.getElementsByTagName('head')[0],
-								done = false;
-						
-							script.src = url;
-							script.onload = script.onreadystatechange = function() {
-								if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
-									done = true;
-									callback();
-									script.onload = script.onreadystatechange = null;
-									head.removeChild(script);
-								}
-							};
-						
-						head.appendChild(script);
-					}
-					
-					function getScriptCallback() {
-						if (urls.length > 0) getScript(urls.shift(), getScriptCallback);
-						else callback();
-					}
-					
-					getScript(urls.shift(), getScriptCallback);
+			function autoplay() {
+				var canvas = $('<canvas style="position: fixed; z-index: 1001;top: 10px; right: 10px; opacity: 0.9">').get(0),
+					context = canvas.getContext('2d'),
+					video = document.createElement('video'),
+					detectorHandOpen,
+					detectorHandFist;
+				
+				document.getElementsByTagName('body')[0].appendChild(canvas);
+				
+				try {
+					compatibility.getUserMedia({video: true}, function(stream) {
+						try {
+							video.src = compatibility.URL.createObjectURL(stream);
+						} catch (error) {
+							video.src = stream;
+						}
+						compatibility.requestAnimationFrame(play);
+					}, function (error) {
+						alert("WebRTC not available");
+					});
+				} catch (error) {
+					alert(error);
 				}
 				
-				getScripts([
-					'js/compatibility.js',
-					'js/objectdetect.js',
-					'js/objectdetect.handopen.js',
-					'js/objectdetect.handfist.js',
-					'js/jquery.js'],
-				
-					function() {
-						var canvas = $('<canvas style="position: fixed; z-index: 1001;top: 10px; right: 10px; opacity: 0.9">').get(0),
-							context = canvas.getContext('2d'),
-							video = document.createElement('video'),
-							detectorHandOpen,
-							detectorHandFist;
+				function play() {
+					compatibility.requestAnimationFrame(play);
+					if (video.paused) video.play();
+					
+					if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
 						
-						document.getElementsByTagName('body')[0].appendChild(canvas);
+						/* Prepare the detector once the video dimensions are known: */
+			          	var width = ~~(80 * video.videoWidth / video.videoHeight);
+						var height = 80;
+			          	
+			          	if (!detectorHandOpen) {
+				      		detectorHandOpen = new objectdetect.detector(width, height, 1.1, objectdetect.handopen);
+				      	}
+
+				      	if (!detectorHandFist) {
+				      		detectorHandFist = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
+				      	}
+			      	
+						/* Draw video overlay: */
+						canvas.width = ~~(100 * video.videoWidth / video.videoHeight);
+						canvas.height = 100;
+						context.drawImage(video, 0, 0, canvas.clientWidth, canvas.clientHeight);
 						
-						try {
-							compatibility.getUserMedia({video: true}, function(stream) {
-								try {
-									video.src = compatibility.URL.createObjectURL(stream);
-								} catch (error) {
-									video.src = stream;
-								}
-								compatibility.requestAnimationFrame(play);
-							}, function (error) {
-								alert("WebRTC not available");
-							});
-						} catch (error) {
-							alert(error);
-						}
-						
-						function play() {
-							compatibility.requestAnimationFrame(play);
-							if (video.paused) video.play();
+						//start hand open
+						var coordsHandOpen = detectorHandOpen.detect(video, 1);
+						if (coordsHandOpen[0] && coordsHandOpen[0][0] > 50) {
+							var coordHandOpen = coordsHandOpen[0];
 							
-							if (video.readyState === video.HAVE_ENOUGH_DATA && video.videoWidth > 0) {
-								
-								/* Prepare the detector once the video dimensions are known: */
-					          	var width = ~~(80 * video.videoWidth / video.videoHeight);
-								var height = 80;
-					          	
-					          	if (!detectorHandOpen) {
-						      		detectorHandOpen = new objectdetect.detector(width, height, 1.1, objectdetect.handopen);
-						      	}
-
-						      	if (!detectorHandFist) {
-						      		detectorHandFist = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
-						      	}
-					      	
-								/* Draw video overlay: */
-								canvas.width = ~~(100 * video.videoWidth / video.videoHeight);
-								canvas.height = 100;
-								context.drawImage(video, 0, 0, canvas.clientWidth, canvas.clientHeight);
-								
-								//start hand open
-								var coordsHandOpen = detectorHandOpen.detect(video, 1);
-								if (coordsHandOpen[0]) {
-									var coordHandOpen = coordsHandOpen[0];
-									
-									/* Rescale coordinates from detector to video coordinate space: */
-									coordHandOpen[0] *= video.videoWidth / detectorHandOpen.canvas.width;
-									coordHandOpen[1] *= video.videoHeight / detectorHandOpen.canvas.height;
-									coordHandOpen[2] *= video.videoWidth / detectorHandOpen.canvas.width;
-									coordHandOpen[3] *= video.videoHeight / detectorHandOpen.canvas.height;
-									
-									/* Find coordinates with maximum confidence: */
-									var coordHandOpen = coordsHandOpen[0];
-									for (var i = coordsHandOpen.length - 1; i >= 0; --i)
-										if (coordsHandOpen[i][4] > coordHandOpen[4]) coordHandOpen = coordsHandOpen[i];
-									
-									/* Scroll window horizontally */
-									var hand_open_pos = [coordHandOpen[0] + coordHandOpen[2] / 2, coordHandOpen[1] + coordHandOpen[3] / 2];
-									if (hand_open_pos_old) {
-												
-									} else hand_open_pos_old = hand_open_pos;
-									
-									if(hand_open_pos_old != hand_open_pos) {
-										var dx = (hand_open_pos[0] - hand_open_pos_old[0]) / video.videoWidth,
-											dy = (hand_open_pos[1] - hand_open_pos_old[1]) / video.videoHeight;
-										/*console.log('dx', dx);
-										console.log('dy', dy);
-										if(dx > 100)
-											slide.nextPage();
-										else if(dx < -100)
-											slide.prevPage();*/
-									}
-									
-									/* Draw coordinates on video overlay: */
-									context.beginPath();
-									context.lineWidth = '2';
-									context.fillStyle = 'rgba(0, 255, 255, 0.5)';
-									context.fillRect(
-										coordHandOpen[0] / video.videoWidth * canvas.clientWidth,
-										coordHandOpen[1] / video.videoHeight * canvas.clientHeight,
-										coordHandOpen[2] / video.videoWidth * canvas.clientWidth,
-										coordHandOpen[3] / video.videoHeight * canvas.clientHeight);
-									context.stroke();
-								} else 
-									hand_open_pos_old = null;
-								//end hand open	
-
-								//start hand fist
-								var coordsHandFist = detectorHandFist.detect(video, 1);
-								if (coordsHandFist[0]) {
-									var coordHandFist = coordsHandFist[0];
-									
-									/* Rescale coordinates from detector to video coordinate space: */
-									coordHandFist[0] *= video.videoWidth / detectorHandFist.canvas.width;
-									coordHandFist[1] *= video.videoHeight / detectorHandFist.canvas.height;
-									coordHandFist[2] *= video.videoWidth / detectorHandFist.canvas.width;
-									coordHandFist[3] *= video.videoHeight / detectorHandFist.canvas.height;
-									
-									/* Find coordinates with maximum confidence: */
-									var coordHandFist = coordsHandFist[0];
-									for (var i = coordsHandFist.length - 1; i >= 0; --i)
-										if (coordsHandFist[i][4] > coordHandFist[4]) coordHandFist = coordsHandFist[i];
-
-									/* Scroll window vertically */
-									var hand_fist_pos = [coordHandFist[0] + coordHandFist[2] / 2, coordHandFist[1] + coordHandFist[3] / 2];
-									if (hand_fist_pos_old) {
-										
-									} else hand_fist_pos_old = hand_fist_pos;
-
-									if(hand_fist_pos_old != hand_fist_pos) {
-										var dx_fist = (hand_fist_pos[0] - hand_fist_pos_old[0]) / video.videoWidth,
-											dy_fist = (hand_fist_pos[1] - hand_fist_pos_old[1]) / video.videoHeight;
-										
-										if(dy_fist > 0)
-											slide.nextBook();
-										else if(dy_fist < 0)
-											slide.prevBook();	
-									}
-									
-									/* Draw coordinates on video overlay: */
-									context.beginPath();
-									context.lineWidth = '2';
-									context.fillStyle = 'rgba(255, 0, 0, 0.5)';
-									context.fillRect(
-										coordHandFist[0] / video.videoWidth * canvas.clientWidth,
-										coordHandFist[1] / video.videoHeight * canvas.clientHeight,
-										coordHandFist[2] / video.videoWidth * canvas.clientWidth,
-										coordHandFist[3] / video.videoHeight * canvas.clientHeight);
-									context.stroke();
-								} else 
-									hand_fist_pos_old = null;
-								//end hand fist 
+							/* Rescale coordinates from detector to video coordinate space: */
+							coordHandOpen[0] *= video.videoWidth / detectorHandOpen.canvas.width;
+							coordHandOpen[1] *= video.videoHeight / detectorHandOpen.canvas.height;
+							coordHandOpen[2] *= video.videoWidth / detectorHandOpen.canvas.width;
+							coordHandOpen[3] *= video.videoHeight / detectorHandOpen.canvas.height;
+							
+							/* Animate book up and down */
+							var diff_hand_open = checkDiffHandOpen(coordHandOpen[0] / video.videoWidth * canvas.clientWidth, coordHandOpen[2] / video.videoWidth * canvas.clientWidth, coordHandOpen[3] / video.videoHeight * canvas.clientHeight);
+							if(diff_hand_open != 0) {
+								if(diff_hand_open == 1)
+									slide.nextPage();
+								else if(diff_hand_open == -1)
+									slide.prevPage();	
 							}
+							
+							/* Draw coordinates on video overlay: */
+							context.beginPath();
+							context.lineWidth = '2';
+							context.fillStyle = 'rgba(0, 255, 255, 0.5)';
+							context.fillRect(
+								coordHandOpen[0] / video.videoWidth * canvas.clientWidth,
+								coordHandOpen[1] / video.videoHeight * canvas.clientHeight,
+								coordHandOpen[2] / video.videoWidth * canvas.clientWidth,
+								coordHandOpen[3] / video.videoHeight * canvas.clientHeight
+							);
+							context.stroke();
 						}
+						//end hand open	
+
+						//start hand fist
+						var coordsHandFist = detectorHandFist.detect(video, 1);
+						if (coordsHandFist[0] && coordsHandFist[0][0] < 10) {
+							var coordHandFist = coordsHandFist[0];
+							
+							/* Rescale coordinates from detector to video coordinate space: */
+							coordHandFist[0] *= video.videoWidth / detectorHandFist.canvas.width;
+							coordHandFist[1] *= video.videoHeight / detectorHandFist.canvas.height;
+							coordHandFist[2] *= video.videoWidth / detectorHandFist.canvas.width;
+							coordHandFist[3] *= video.videoHeight / detectorHandFist.canvas.height;
+							
+							/* Animate book up and down */
+							var diff = checkDiff(coordHandFist[1] / video.videoHeight * canvas.clientHeight);
+							if(diff != 0) {
+								if(diff == 1)
+									slide.nextBook();
+								else if(diff == -1)
+									slide.prevBook();	
+							}
+							
+							/* Draw coordinates on video overlay: */
+							context.beginPath();
+							context.lineWidth = '2';
+							context.fillStyle = 'rgba(255, 0, 0, 0.5)';
+							context.fillRect(
+								coordHandFist[0] / video.videoWidth * canvas.clientWidth,
+								coordHandFist[1] / video.videoHeight * canvas.clientHeight,
+								coordHandFist[2] / video.videoWidth * canvas.clientWidth,
+								coordHandFist[3] / video.videoHeight * canvas.clientHeight
+							);
+							context.stroke();
+						}  
 					}
-				);
-			};
+				}
+			}
 			autoplay();
-			initializeWebcamSwiper();
+			
+			var initialTop = 0;
+			function checkDiff(val) {
+				var threshold = 30;
+				if(!initialTop) {
+					initialTop = val;
+					return 0;
+				}
+				else if(val - initialTop >= threshold) { //going down, next
+					initialTop = val;
+					return 1;
+				} else if(initialTop - val >= threshold) { //going up, previous
+					initialTop = val;
+					return -1;
+				} else
+					return 0;
+			}
+
+			var initialLeft = 0, initialWidth = 0, initialHeight = 0;
+			function checkDiffHandOpen(val, width, height) {
+				var multiplier = 0, threshold = 15;
+				if(!initialLeft && !initialWidth && !initialHeight) {
+					initialLeft = val;
+					initialWidth = width;
+					initialHeight = height;
+					return 0;
+				}
+				else if(val - initialLeft >= threshold && width > initialWidth+multiplier && height > initialHeight+multiplier) { //next
+					initialLeft = val;
+					return 1;
+				} else if(initialLeft - val >= threshold && width > initialWidth+multiplier && height > initialHeight+multiplier) { //previous
+					initialLeft = val;
+					return -1;
+				} else
+					return 0;
+			}
 		</script>
 	</body>
 </html>
